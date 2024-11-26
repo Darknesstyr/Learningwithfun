@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IS2 Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="../pics/IS2 LEarning.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/lesson 1.css">
+    <style>
+        .game-container {
+            max-width: 500px;
+            margin: auto;
+        }
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .images img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <a href="welcome.html" class="NavLogo">
+                <img class="logo" src="../pics/IS2 LEarning.png" alt="IS2 Logo">
+                <img class="LogoName" src="../pics/LogoName.png" alt="Logo Name">
+            </a>
+            <ul>
+                <li class="shadow"><a href="about page.html">About <i class="fa-solid fa-envelope"></i></a></li>
+                <li class="shadow"><a href="article page.html">Articles <i class="fa-solid fa-clipboard"></i></a></li>
+                <li class="covered">
+                    <a href="#" onclick="toggleSubmenu('games-submenu')">Games <i class="fa-solid fa-gamepad"></i></a>
+                    <ul id="games-submenu" class="submenu">
+                        <li><a href="game page1.html">Quiz</a></li>
+                        <li><a href="game page2.html">Snake</a></li>
+                        <li><a href="game page3.html">4P1W</a></li>
+                    </ul>
+                </li>
+                <li class="shadow">
+                    <a href="#" onclick="toggleSubmenu('entertainment-submenu')">Entertainment <i class="fa-regular fa-newspaper"></i></a>
+                    <ul id="entertainment-submenu" class="submenu">
+                        <li><a href="entertainment page1.html">Meme 1</a></li>
+                        <li><a href="entertainment page2.html">Meme 2</a></li>
+                        <li><a href="entertainment page3.html">Meme 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="shadow">
+                    <a href="#" onclick="toggleSubmenu('Lesson-submenu')">Lessons <i class="fa-solid fa-book"></i></a>
+                    <ul id="Lesson-submenu" class="submenu">
+                        <li><a href="lesson page1.html">HTML</a></li>
+                        <li><a href="lesson page2.html">COMPUTER</a></li>
+                        <li><a href="lesson page3.html">MS OFFICE</a></li>
+                    </ul>
+                  </li>
+            </ul>  
+            <div class="social_media">
+              <a href="settings.html"><i class="fa-solid fa-gear"></i></a>
+              <a href="#"><i class="fa-solid fa-bread-slice"></i></a>
+              <a href="../index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+          </div>
+        </div>
+        <div class="main_content">
+            <div class="header">Game 3: 4 Pics 1 Word!!</div>  
+            <div class="info">
+                <h1>Four Pics One Word</h1>
+                <div class="game-container">
+                    <div class="images" id="image-container"></div>
+                    <div class="input-container">
+                        <input type="text" id="guess-input" placeholder="Your answer...">
+                    </div>
+                    <button onclick="checkAnswer()">Submit</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rounds = [
+            {
+                images: [
+                    "https://i.insider.com/6019ac40ee136f00183a9de1?width=1000&format=jpeg&auto=webp",
+                    "https://verpex.com/assets/uploads/images/blog/Basic-HTML-Codes-for-Websites.webp?v=1691760654",
+                    "https://upload.wikimedia.org/wikipedia/commons/d/de/HTML5_oval_logo.png",
+                    "https://cdn.statically.io/gh/TheOdinProject/curriculum/594984d7c9f9e744577f19ea475b3864e8cc7c91/html_css/v2/foundations/inspecting-html-and-css/imgs/01.png"
+                ],
+                answer: "HTML"
+            },
+            {
+                images: [
+                    "https://x-team.com/hs-fs/hubfs/Imported_Blog_Media/CSS-Code-2.jpg?width=2180&height=980&name=CSS-Code-2.jpg",
+                    "https://img-resize-cdn.joshmartin.ch/768x0%2Cc3537b9f46b5f6055fbc8b4cd03b6b2cc63fc2eefd3d8cd9f0c9f99a5933e496/https://joshmartin.ch/app/uploads/2017/10/css3.svg",
+                    "https://happycoding.io/teaching/intro-to-web-dev-2022-spring/images/week-02-css/css.png",
+                    "https://code.visualstudio.com/assets/docs/languages/css/color.png"
+                ],
+                answer: "CSS"
+            },
+            {
+                images: [
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/JavaScript_code.png/800px-JavaScript_code.png",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRss-86vRuxOArrVRmMgerLZ5pi8yCs6U7zsQ&s",
+                    "https://www.infoworld.com/wp-content/uploads/2024/06/shutterstock_1361674454-100939444-orig.jpg?quality=50&strip=all&w=1024",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png"
+                ],
+                answer: "JavaScript"
+            },
+            {
+                images: [
+                    "https://e7.pngegg.com/pngimages/1016/968/png-clipart-microsoft-powerpoint-presentation-microsoft-office-365-microsoft-angle-text.png",
+                    "https://static.vecteezy.com/system/resources/previews/047/750/204/non_2x/powerpoint-icon-transparent-background-free-png.png",
+                    "https://anjalicomputereducation.com/assets/anjali/course/ms-powerpoint.png",
+                    "https://images.ctfassets.net/lzny33ho1g45/powerpoint-online-guide-p-img/f0b13ed49e8fddaa65426059fa8f26f3/powerpoint-app-tips.jpg?w=1520&fm=jpg&q=30&fit=thumb&h=760"
+                ],
+                answer: "Powerpoint"
+            },
+            {
+                images: [
+                    "https://upload.wikimedia.org/wikipedia/commons/e/e2/Desktop_computer_system_diagram_%28English%29.svg",
+                    "https://www.webopedia.com/wp-content/uploads/2010/07/what-is-a-computer-cover-scaled.webp",
+                    "https://media.gcflearnfree.org/content/55e0730c7dd48174331f5164_01_17_2014/whatisacomputer_pc.jpg",
+                    "https://media.geeksforgeeks.org/wp-content/uploads/20230426115225/computer-image-660.jpg"
+                ],
+                answer: "Computer"
+            }
+        ];
+
+        let currentRound = 0;
+
+        function loadRound() {
+            const container = document.getElementById("image-container");
+            container.innerHTML = ""; // Clear previous images
+            const round = rounds[currentRound];
+            round.images.forEach(imgSrc => {
+                const img = document.createElement("img");
+                img.src = imgSrc;
+                container.appendChild(img);
+            });
+            document.getElementById("guess-input").value = ""; // Clear input
+            document.getElementById("result").textContent = ""; // Clear result
+        }
+
+        function checkAnswer() {
+            const userInput = document.getElementById("guess-input").value.trim().toLowerCase();
+            const correctAnswer = rounds[currentRound].answer.toLowerCase();
+            const result = document.getElementById("result");
+
+            if (userInput === correctAnswer) {
+                result.textContent = "Correct! Moving to the next round.";
+                result.style.color = "green";
+                currentRound++;
+                if (currentRound < rounds.length) {
+                    setTimeout(loadRound, 2000); // Load next round after a delay
+                } else {
+                    result.textContent = "Congratulations! You've completed all the rounds.";
+                }
+            } else {
+                result.textContent = "Incorrect! Try again.";
+                result.style.color = "red";
+            }
+        }
+
+        // Initialize the first round
+        loadRound();
+
+        function toggleSubmenu(id) {
+            const submenu = document.getElementById(id);
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+            }
+    </script>
+</body>
+</html>
